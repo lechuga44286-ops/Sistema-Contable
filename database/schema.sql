@@ -1,39 +1,43 @@
-CREATE TABLE Users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE Accounts (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
+CREATE TABLE accounts (
+    id SERIAL PRIMARY KEY,
     account_name VARCHAR(255) NOT NULL,
-    balance DECIMAL(10, 2) DEFAULT 0.00,
+    account_type VARCHAR(50) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE Transactions (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    account_id INT,
-    transaction_type ENUM('debit', 'credit'),
+CREATE TABLE transactions (
+    id SERIAL PRIMARY KEY,
+    account_id INT REFERENCES accounts(id),
+    transaction_date TIMESTAMP NOT NULL,
     amount DECIMAL(10, 2) NOT NULL,
-    transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    transaction_type VARCHAR(50) NOT NULL,
     description TEXT,
-    FOREIGN KEY (account_id) REFERENCES Accounts(id) ON DELETE CASCADE
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE Categories (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    category_name VARCHAR(255) NOT NULL UNIQUE
+CREATE TABLE categories (
+    id SERIAL PRIMARY KEY,
+    category_name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE TransactionCategories (
-    transaction_id INT,
-    category_id INT,
-    PRIMARY KEY (transaction_id, category_id),
-    FOREIGN KEY (transaction_id) REFERENCES Transactions(id) ON DELETE CASCADE,
-    FOREIGN KEY (category_id) REFERENCES Categories(id) ON DELETE CASCADE
+CREATE TABLE budgets (
+    id SERIAL PRIMARY KEY,
+    category_id INT REFERENCES categories(id),
+    amount DECIMAL(10, 2) NOT NULL,
+    budget_period_start TIMESTAMP NOT NULL,
+    budget_period_end TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE reports (
+    id SERIAL PRIMARY KEY,
+    report_name VARCHAR(255) NOT NULL,
+    report_date TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

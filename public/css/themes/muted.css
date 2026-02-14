@@ -1,0 +1,27 @@
+.muted {
+    background-color: #f0e68c; /* Soft pastel yellow */
+    color: #734f3a; /* Soft pastel brown */
+}
+
+.btn {
+    background-color: #a1c6ea; /* Soft pastel blue */
+    color: #ffffff; /* White text */
+}
+
+.header {
+    background-color: #f9c2c2; /* Soft pastel pink */
+    color: #333333; /* Dark text */
+}
+
+.footer {
+    background-color: #d5c6e0; /* Soft pastel purple */
+    color: #333333; /* Dark text */
+}
+
+.link {
+    color: #5a9e80; /* Soft pastel green */
+}
+
+.link:hover {
+    color: #3a5b4c; /* Darker pastel green on hover */
+}

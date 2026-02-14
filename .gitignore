@@ -1,0 +1,16 @@
+# Node.js
+node_modules/
+
+# Binaries
+*.exe
+*.out
+*.app
+
+# Logs
+logs/
+*.log
+
+# Dependency directories
+node_modules/
+bower_components/
+jspm_packages/
